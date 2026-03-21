@@ -100,12 +100,18 @@ header {
     color: var(--rust-orange);
 }
 
+.nav-menu a:active {
+    background: rgba(107, 68, 35, 0.2);
+    color: var(--rust-orange);
+    transform: scale(0.96);
+}
+
 /* Hero Section */
 .hero {
     background: linear-gradient(135deg, rgba(107, 68, 35, 0.85), rgba(90, 107, 63, 0.85)), 
                 url('pexels-catiamatos-1072179.jpg') center/cover no-repeat;
     color: var(--cream);
-    padding: 140px 20px;
+    padding: 60px 20px;
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -502,7 +508,7 @@ footer p {
     background: linear-gradient(135deg, rgba(107, 68, 35, 0.85), rgba(90, 107, 63, 0.85)), 
                 url('pexels-catiamatos-1072179.jpg') center/cover no-repeat;
     color: var(--cream);
-    padding: 120px 20px;
+    padding: 60px 20px;
     text-align: center;
     position: relative;
     overflow: hidden;

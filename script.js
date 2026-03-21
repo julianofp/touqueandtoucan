@@ -32,7 +32,7 @@ document.querySelectorAll('form').forEach(form => {
 // Add animation on scroll
 const observerOptions = {
     threshold: 0.1,
-    rootMargin: '0px 0px -100px 0px'
+    rootMargin: '0px'
 };
 
 const observer = new IntersectionObserver(function(entries) {
@@ -56,21 +56,32 @@ document.querySelectorAll('.coming-soon-content, .about-content, .contact-conten
 window.addEventListener('scroll', function() {
     const sections = document.querySelectorAll('section[id]');
     const scrollPosition = window.pageYOffset + 100;
+    const atBottom = window.innerHeight + window.pageYOffset >= document.body.scrollHeight - 10;
+
+    let activeId = null;
 
     sections.forEach(section => {
         const sectionTop = section.offsetTop;
         const sectionHeight = section.offsetHeight;
-        const sectionId = section.getAttribute('id');
-        
         if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-            document.querySelectorAll('.nav-menu a').forEach(link => {
-                link.style.backgroundColor = '';
-                link.style.color = '';
-                if (link.getAttribute('href') === `#${sectionId}`) {
-                    link.style.backgroundColor = 'rgba(107, 68, 35, 0.1)';
-                    link.style.color = '#C86F3C';
-                }
-            });
+            activeId = section.getAttribute('id');
         }
     });
+
+    // If at the bottom of the page, activate the last section
+    if (atBottom) {
+        const allSections = document.querySelectorAll('section[id]');
+        activeId = allSections[allSections.length - 1].getAttribute('id');
+    }
+
+    if (activeId) {
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.style.backgroundColor = '';
+            link.style.color = '';
+            if (link.getAttribute('href') === `#${activeId}`) {
+                link.style.backgroundColor = 'rgba(107, 68, 35, 0.1)';
+                link.style.color = '#C86F3C';
+            }
+        });
+    }
 });
