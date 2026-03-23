@@ -84,6 +84,7 @@ header {
     display: flex;
     list-style: none;
     gap: 2rem;
+    align-items: center;
 }
 
 .nav-menu a {
@@ -104,6 +105,19 @@ header {
     background: rgba(107, 68, 35, 0.2);
     color: var(--rust-orange);
     transform: scale(0.96);
+}
+
+.nav-instagram {
+    display: flex;
+    align-items: center;
+    color: var(--dark-text);
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.nav-instagram:hover {
+    color: var(--rust-orange);
+    background: transparent !important;
+    transform: scale(1.15);
 }
 
 /* Hero Section */
@@ -387,9 +401,13 @@ section {
 }
 
 .contact-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+    display: flex;
+    justify-content: center;
+}
+
+.contact-form {
+    width: 100%;
+    max-width: 560px;
 }
 
 .contact-info {
@@ -501,6 +519,26 @@ footer {
 footer p {
     margin: 0.5rem 0;
     font-size: 1.05rem;
+}
+
+.social-links {
+    margin-top: 1rem;
+}
+
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--cream);
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    opacity: 0.85;
+    transition: opacity 0.2s ease;
+}
+
+.social-link:hover {
+    opacity: 1;
 }
 
 /* Hero Samples Section */

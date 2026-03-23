@@ -4,30 +4,44 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
+            const headerHeight = document.querySelector('header').offsetHeight;
+            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+            window.scrollTo({ top: Math.max(0, targetPosition), behavior: 'smooth' });
         }
     });
 });
 
-// Form submission handlers
-document.querySelectorAll('form').forEach(form => {
-    form.addEventListener('submit', function(e) {
+// Contact form — Formspree submission
+const contactForm = document.querySelector('.contact-form');
+if (contactForm) {
+    contactForm.addEventListener('submit', async function(e) {
         e.preventDefault();
-        
-        // Check if it's the notify form or contact form
-        if (this.classList.contains('notify-form')) {
-            alert('Thanks for signing up! We\'ll notify you when we launch.');
-        } else {
-            alert('Thank you for reaching out! We\'ll get back to you soon.');
+        const btn = this.querySelector('button[type="submit"]');
+        const success = this.querySelector('.form-success');
+        btn.disabled = true;
+        btn.textContent = 'Sending...';
+        try {
+            const response = await fetch(this.action, {
+                method: 'POST',
+                body: new FormData(this),
+                headers: { 'Accept': 'application/json' }
+            });
+            if (response.ok) {
+                this.reset();
+                btn.style.display = 'none';
+                success.style.display = 'block';
+            } else {
+                btn.disabled = false;
+                btn.textContent = 'Send Message';
+                alert('Something went wrong. Please try again or email directly.');
+            }
+        } catch {
+            btn.disabled = false;
+            btn.textContent = 'Send Message';
+            alert('Something went wrong. Please try again or email directly.');
         }
-        
-        // Reset form
-        this.reset();
     });
-});
+}
 
 // Add animation on scroll
 const observerOptions = {
